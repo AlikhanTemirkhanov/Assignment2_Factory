@@ -1,4 +1,5 @@
-import factory.*;
+import factory.FactoryProvider;
+import factory.SmartHomeFactory;
 
 public class Main {
 
@@ -12,31 +13,8 @@ public class Main {
             family = "homekit";
         }
 
-        SmartHomeFactory factory;
-
-        switch (family.toLowerCase()) {
-
-            case "homekit":
-                factory = new HomeKitFactory();
-                break;
-
-            case "google":
-                factory = new GoogleFactory();
-                break;
-
-            case "alexa":
-                factory = new AlexaFactory();
-                break;
-
-            case "samsung":
-                factory = new SamsungFactory();
-                break;
-
-            default:
-                throw new IllegalArgumentException(
-                        "Unknown family: " + family
-                );
-        }
+        SmartHomeFactory factory =
+                FactoryProvider.getFactory(family);
 
         SmartHomeSystem system =
                 new SmartHomeSystem(factory);
