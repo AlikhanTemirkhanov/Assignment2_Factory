@@ -1,0 +1,118 @@
+@startuml
+
+title Smart Home Factory Architecture
+
+interface SmartLight
+interface SmartThermostat
+interface SecurityCamera
+
+class HomeKitLight
+class GoogleLight
+class AlexaLight
+class SamsungLight
+
+class HomeKitThermostat
+class GoogleThermostat
+class AlexaThermostat
+class SamsungThermostat
+
+class HomeKitCamera
+class GoogleCamera
+class AlexaCamera
+class SamsungCamera
+
+SmartLight <|.. HomeKitLight
+SmartLight <|.. GoogleLight
+SmartLight <|.. AlexaLight
+SmartLight <|.. SamsungLight
+
+SmartThermostat <|.. HomeKitThermostat
+SmartThermostat <|.. GoogleThermostat
+SmartThermostat <|.. AlexaThermostat
+SmartThermostat <|.. SamsungThermostat
+
+SecurityCamera <|.. HomeKitCamera
+SecurityCamera <|.. GoogleCamera
+SecurityCamera <|.. AlexaCamera
+SecurityCamera <|.. SamsungCamera
+
+
+interface SmartHomeFactory {
+    +createLight()
+    +createThermostat()
+    +createCamera()
+}
+
+class HomeKitFactory
+class GoogleFactory
+class AlexaFactory
+class SamsungFactory
+
+SmartHomeFactory <|.. HomeKitFactory
+SmartHomeFactory <|.. GoogleFactory
+SmartHomeFactory <|.. AlexaFactory
+SmartHomeFactory <|.. SamsungFactory
+
+HomeKitFactory ..> HomeKitLight : creates
+HomeKitFactory ..> HomeKitThermostat : creates
+HomeKitFactory ..> HomeKitCamera : creates
+
+GoogleFactory ..> GoogleLight : creates
+GoogleFactory ..> GoogleThermostat : creates
+GoogleFactory ..> GoogleCamera : creates
+
+AlexaFactory ..> AlexaLight : creates
+AlexaFactory ..> AlexaThermostat : creates
+AlexaFactory ..> AlexaCamera : creates
+
+SamsungFactory ..> SamsungLight : creates
+SamsungFactory ..> SamsungThermostat : creates
+SamsungFactory ..> SamsungCamera : creates
+
+
+abstract class LightCreator {
+    +createLight()
+    +turnOnLight()
+    +turnOffLight()
+}
+
+class HomeKitLightCreator
+class GoogleLightCreator
+class AlexaLightCreator
+
+LightCreator <|-- HomeKitLightCreator
+LightCreator <|-- GoogleLightCreator
+LightCreator <|-- AlexaLightCreator
+
+LightCreator ..> SmartLight : Factory Method
+
+
+class SmartHomeSystem {
+    -light
+    -thermostat
+    -camera
+    +activateHome()
+    +nightMode()
+    +awayMode()
+    +securityMode()
+}
+
+SmartHomeSystem --> SmartHomeFactory : uses
+
+class FactoryProvider {
+    +getFactory(family)
+}
+
+FactoryProvider ..> SmartHomeFactory
+
+
+note right of LightCreator
+    <<Factory Method>>
+    createLight()
+end note
+
+note right of SmartHomeFactory
+    <<Abstract Factory>>
+end note
+
+@enduml
