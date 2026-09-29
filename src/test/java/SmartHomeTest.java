@@ -181,4 +181,19 @@ public class SmartHomeTest {
         assertTrue(factory.createThermostat() instanceof SamsungThermostat);
         assertTrue(factory.createCamera() instanceof SamsungCamera);
     }
+    @Test
+    void invalidFamilyThrowsException() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> FactoryProvider.getFactory("unknown")
+        );
+    }
+
+    @Test
+    void runtimeSelectionCreatesSamsungFactory() {
+        SmartHomeFactory factory =
+                FactoryProvider.getFactory("samsung");
+
+        assertInstanceOf(SamsungFactory.class, factory);
+    }
 }
