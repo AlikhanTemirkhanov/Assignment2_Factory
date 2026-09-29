@@ -1,43 +1,55 @@
-package smarthome;
-
-import smarthome.direct.*;
+import factory.*;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        String family = "alexa";
+        String family;
 
-        if (family.equals("homekit")) {
-
-            HomeKitLight light = new HomeKitLight();
-            HomeKitThermostat thermostat = new HomeKitThermostat();
-            HomeKitCamera camera = new HomeKitCamera();
-
-            light.turnOn();
-            thermostat.setTemperature(22);
-            camera.startMonitoring();
-
-        } else if (family.equals("google")) {
-
-            GoogleLight light = new GoogleLight();
-            GoogleThermostat thermostat = new GoogleThermostat();
-            GoogleCamera camera = new GoogleCamera();
-
-            light.turnOn();
-            thermostat.setTemperature(22);
-            camera.startMonitoring();
-
-        } else if (family.equals("alexa")) {
-
-            AlexaLight light = new AlexaLight();
-            AlexaThermostat thermostat = new AlexaThermostat();
-            AlexaCamera camera = new AlexaCamera();
-
-            light.turnOn();
-            thermostat.setTemperature(22);
-            camera.startMonitoring();
+        if (args.length > 0) {
+            family = args[0];
+        } else {
+            family = "homekit";
         }
+
+        SmartHomeFactory factory;
+
+        switch (family.toLowerCase()) {
+
+            case "homekit":
+                factory = new HomeKitFactory();
+                break;
+
+            case "google":
+                factory = new GoogleFactory();
+                break;
+
+            case "alexa":
+                factory = new AlexaFactory();
+                break;
+
+            case "samsung":
+                factory = new SamsungFactory();
+                break;
+
+            default:
+                throw new IllegalArgumentException(
+                        "Unknown family: " + family
+                );
+        }
+
+        SmartHomeSystem system =
+                new SmartHomeSystem(factory);
+
+        System.out.println("Selected family: " + family);
+
+        System.out.println("\n=== Activate Home ===");
+        system.activateHome();
+
+        System.out.println("\n=== Night Mode ===");
+        system.nightMode();
+
+        System.out.println("\n=== Away Mode ===");
+        system.awayMode();
     }
 }
-

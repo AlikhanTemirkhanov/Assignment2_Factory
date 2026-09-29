@@ -1,6 +1,8 @@
-package smarthome.direct;
+package direct;
 
-public class GoogleThermostat {
+import smarthome.products.SmartThermostat;
+
+public class GoogleThermostat implements SmartThermostat {
 
     public void setTemperature(int temperature) {
         System.out.println(

@@ -1,6 +1,8 @@
-package smarthome.direct;
+package direct;
 
-public class HomeKitLight {
+import smarthome.products.SmartLight;
+
+public class HomeKitLight implements SmartLight {
 
     public void turnOn() {
         System.out.println("HomeKit light is ON");

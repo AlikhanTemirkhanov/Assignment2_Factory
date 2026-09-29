@@ -1,10 +1,10 @@
-package smarthome.direct;
+package direct;
 
-public class HomeKitCamera {
+import smarthome.products.SecurityCamera;
+
+public class HomeKitCamera implements SecurityCamera {
 
     public void startMonitoring() {
-        System.out.println(
-                "HomeKit camera started monitoring"
-        );
+        System.out.println("HomeKit camera started monitoring");
     }
 }

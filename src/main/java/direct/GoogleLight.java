@@ -1,6 +1,8 @@
-package smarthome.direct;
+package direct;
 
-public class GoogleLight {
+import smarthome.products.SmartLight;
+
+public class GoogleLight implements SmartLight {
 
     public void turnOn() {
         System.out.println("Google light is ON");

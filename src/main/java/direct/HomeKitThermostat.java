@@ -1,6 +1,8 @@
-package smarthome.direct;
+package direct;
 
-public class HomeKitThermostat {
+import smarthome.products.SmartThermostat;
+
+public class HomeKitThermostat implements SmartThermostat {
 
     public void setTemperature(int temperature) {
         System.out.println(

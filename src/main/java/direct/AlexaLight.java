@@ -1,6 +1,8 @@
-package smarthome.direct;
+package direct;
 
-public class AlexaLight {
+import smarthome.products.SmartLight;
+
+public class AlexaLight implements SmartLight {
 
     public void turnOn() {
         System.out.println("Alexa light is ON");

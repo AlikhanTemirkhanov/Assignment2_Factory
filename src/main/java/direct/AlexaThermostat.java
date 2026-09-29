@@ -1,6 +1,8 @@
-package smarthome.direct;
+package direct;
 
-public class AlexaThermostat {
+import smarthome.products.SmartThermostat;
+
+public class AlexaThermostat implements SmartThermostat {
 
     public void setTemperature(int temperature) {
         System.out.println(

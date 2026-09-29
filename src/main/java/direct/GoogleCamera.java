@@ -1,10 +1,10 @@
-package smarthome.direct;
+package direct;
 
-public class GoogleCamera {
+import smarthome.products.SecurityCamera;
+
+public class GoogleCamera implements SecurityCamera {
 
     public void startMonitoring() {
-        System.out.println(
-                "Google camera started monitoring"
-        );
+        System.out.println("Google camera started monitoring");
     }
 }
