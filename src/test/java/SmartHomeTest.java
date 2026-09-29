@@ -1,13 +1,15 @@
-import factory.*;
 import direct.*;
-import smarthome.products.*;
+import factory.*;
 import org.junit.jupiter.api.Test;
+import smarthome.products.SecurityCamera;
+import smarthome.products.SmartLight;
+import smarthome.products.SmartThermostat;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SmartHomeTest {
 
-    // 1. HomeKit factory creates HomeKit Light
+    // 1. HomeKit creates HomeKit Light
     @Test
     void homeKitCreatesHomeKitLight() {
         SmartHomeFactory factory = new HomeKitFactory();
@@ -17,7 +19,7 @@ public class SmartHomeTest {
         assertInstanceOf(HomeKitLight.class, light);
     }
 
-    // 2. Google factory creates Google Light
+    // 2. Google creates Google Light
     @Test
     void googleCreatesGoogleLight() {
         SmartHomeFactory factory = new GoogleFactory();
@@ -27,7 +29,7 @@ public class SmartHomeTest {
         assertInstanceOf(GoogleLight.class, light);
     }
 
-    // 3. Alexa factory creates Alexa Light
+    // 3. Alexa creates Alexa Light
     @Test
     void alexaCreatesAlexaLight() {
         SmartHomeFactory factory = new AlexaFactory();
@@ -37,7 +39,7 @@ public class SmartHomeTest {
         assertInstanceOf(AlexaLight.class, light);
     }
 
-    // 4. HomeKit thermostat
+    // 4. HomeKit creates HomeKit Thermostat
     @Test
     void homeKitCreatesThermostat() {
         SmartHomeFactory factory = new HomeKitFactory();
@@ -47,7 +49,7 @@ public class SmartHomeTest {
         assertInstanceOf(HomeKitThermostat.class, thermostat);
     }
 
-    // 5. Google thermostat
+    // 5. Google creates Google Thermostat
     @Test
     void googleCreatesThermostat() {
         SmartHomeFactory factory = new GoogleFactory();
@@ -57,7 +59,7 @@ public class SmartHomeTest {
         assertInstanceOf(GoogleThermostat.class, thermostat);
     }
 
-    // 6. Alexa thermostat
+    // 6. Alexa creates Alexa Thermostat
     @Test
     void alexaCreatesThermostat() {
         SmartHomeFactory factory = new AlexaFactory();
@@ -67,7 +69,7 @@ public class SmartHomeTest {
         assertInstanceOf(AlexaThermostat.class, thermostat);
     }
 
-    // 7. HomeKit camera
+    // 7. HomeKit creates HomeKit Camera
     @Test
     void homeKitCreatesCamera() {
         SmartHomeFactory factory = new HomeKitFactory();
@@ -77,7 +79,7 @@ public class SmartHomeTest {
         assertInstanceOf(HomeKitCamera.class, camera);
     }
 
-    // 8. Google camera
+    // 8. Google creates Google Camera
     @Test
     void googleCreatesCamera() {
         SmartHomeFactory factory = new GoogleFactory();
@@ -87,7 +89,7 @@ public class SmartHomeTest {
         assertInstanceOf(GoogleCamera.class, camera);
     }
 
-    // 9. Alexa camera
+    // 9. Alexa creates Alexa Camera
     @Test
     void alexaCreatesCamera() {
         SmartHomeFactory factory = new AlexaFactory();
@@ -97,7 +99,7 @@ public class SmartHomeTest {
         assertInstanceOf(AlexaCamera.class, camera);
     }
 
-    // 10. Samsung family creates all products
+    // 10. Samsung creates all products
     @Test
     void samsungCreatesAllProducts() {
         SmartHomeFactory factory = new SamsungFactory();
@@ -107,7 +109,7 @@ public class SmartHomeTest {
         assertInstanceOf(SamsungCamera.class, factory.createCamera());
     }
 
-    // 11. Products implement abstractions
+    // 11. Products use interfaces
     @Test
     void productsUseInterfaces() {
         SmartHomeFactory factory = new HomeKitFactory();
@@ -131,7 +133,7 @@ public class SmartHomeTest {
         assertNotNull(system);
     }
 
-    // 13. Night mode can execute
+    // 13. Night mode works
     @Test
     void nightModeWorks() {
         SmartHomeFactory factory = new AlexaFactory();
@@ -141,7 +143,7 @@ public class SmartHomeTest {
         assertDoesNotThrow(system::nightMode);
     }
 
-    // 14. Away mode can execute
+    // 14. Away mode works
     @Test
     void awayModeWorks() {
         SmartHomeFactory factory = new HomeKitFactory();
@@ -151,7 +153,7 @@ public class SmartHomeTest {
         assertDoesNotThrow(system::awayMode);
     }
 
-    // 15. Activate home can execute
+    // 15. Activate home works
     @Test
     void activateHomeWorks() {
         SmartHomeFactory factory = new SamsungFactory();
@@ -161,16 +163,16 @@ public class SmartHomeTest {
         assertDoesNotThrow(system::activateHome);
     }
 
-    // 16. Factory must not be null
+    // 16. Null factory is rejected
     @Test
     void factoryCannotBeNull() {
         assertThrows(
-                NullPointerException.class,
+                IllegalArgumentException.class,
                 () -> new SmartHomeSystem(null)
         );
     }
 
-    // 17. Samsung products are correct family
+    // 17. Samsung products are compatible
     @Test
     void samsungProductsAreCompatible() {
         SmartHomeFactory factory = new SamsungFactory();

@@ -1,5 +1,7 @@
 import factory.SmartHomeFactory;
-import smarthome.products.*;
+import smarthome.products.SecurityCamera;
+import smarthome.products.SmartLight;
+import smarthome.products.SmartThermostat;
 
 public class SmartHomeSystem {
 
@@ -8,6 +10,13 @@ public class SmartHomeSystem {
     private final SecurityCamera camera;
 
     public SmartHomeSystem(SmartHomeFactory factory) {
+
+        if (factory == null) {
+            throw new IllegalArgumentException(
+                    "SmartHomeFactory cannot be null"
+            );
+        }
+
         this.light = factory.createLight();
         this.thermostat = factory.createThermostat();
         this.camera = factory.createCamera();
@@ -17,6 +26,7 @@ public class SmartHomeSystem {
         light.turnOn();
         thermostat.setTemperature(22);
         camera.startMonitoring();
+
         System.out.println("Home activated.");
     }
 
@@ -24,6 +34,7 @@ public class SmartHomeSystem {
         light.turnOff();
         thermostat.setTemperature(19);
         camera.startMonitoring();
+
         System.out.println("Night mode activated.");
     }
 
@@ -31,6 +42,15 @@ public class SmartHomeSystem {
         light.turnOff();
         thermostat.setTemperature(18);
         camera.startMonitoring();
+
         System.out.println("Away mode activated.");
+    }
+
+    public void securityMode() {
+        light.turnOff();
+        thermostat.setTemperature(18);
+        camera.startMonitoring();
+
+        System.out.println("Security mode activated.");
     }
 }

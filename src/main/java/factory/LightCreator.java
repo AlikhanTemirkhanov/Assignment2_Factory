@@ -1,6 +1,5 @@
 package factory;
 
-import direct.*;
 import smarthome.products.SmartLight;
 
 public abstract class LightCreator {
@@ -9,7 +8,17 @@ public abstract class LightCreator {
 
     public void turnOnLight() {
         SmartLight light = createLight();
+
         light.turnOn();
-        System.out.println("Light is ready for use.");
+
+        System.out.println("Light was created and turned on successfully.");
+    }
+
+    public void turnOffLight() {
+        SmartLight light = createLight();
+
+        light.turnOff();
+
+        System.out.println("Light was turned off successfully.");
     }
 }
